@@ -1,0 +1,13 @@
+/*.iml
+/*.jar
+/*.war
+/*.ear
+/*.xml
+/*.lock
+/*.bin
+/.idea
+/build
+/buildSrc
+/.gradle
+/run
+/out

@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+group = 'red.mohist.yaml'
+version = 0.1
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'sonatype-oss-repo'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+dependencies {
+    compile 'org.yaml:snakeyaml:1.26'
+}
