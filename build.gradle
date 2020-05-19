@@ -41,7 +41,7 @@ publishing {
 
         maven {
             name = "Mohist-Maven"
-            setUrl("file:/" + rootProject.properties["repoParent"] + "Mohist-Maven/maven/")
+            setUrl("file:/Mohist-Maven/maven/")
         }
     }
 }
