@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 
-group = 'red.mohist.yaml'
+group = 'com.mohistmc.yaml'
 version = 0.1
 
 repositories {

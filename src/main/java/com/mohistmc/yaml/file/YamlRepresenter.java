@@ -1,12 +1,12 @@
-package red.mohist.yaml.file;
+package com.mohistmc.yaml.file;
 
+import com.mohistmc.yaml.serialization.ConfigurationSerializable;
+import com.mohistmc.yaml.serialization.ConfigurationSerialization;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.representer.Representer;
-import red.mohist.yaml.ConfigurationSection;
-import red.mohist.yaml.serialization.ConfigurationSerializable;
-import red.mohist.yaml.serialization.ConfigurationSerialization;
+import com.mohistmc.yaml.ConfigurationSection;
 
 public class YamlRepresenter extends Representer {
 

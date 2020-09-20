@@ -1,5 +1,6 @@
-package red.mohist.yaml.file;
+package com.mohistmc.yaml.file;
 
+import com.mohistmc.yaml.util.Validate;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,10 +12,9 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.representer.Representer;
-import red.mohist.yaml.Configuration;
-import red.mohist.yaml.ConfigurationSection;
-import red.mohist.yaml.InvalidConfigurationException;
-import red.mohist.yaml.util.Validate;
+import com.mohistmc.yaml.Configuration;
+import com.mohistmc.yaml.ConfigurationSection;
+import com.mohistmc.yaml.InvalidConfigurationException;
 
 /**
  * An implementation of {@link Configuration} which saves all files in Yaml.

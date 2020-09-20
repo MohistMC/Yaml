@@ -1,5 +1,6 @@
-package red.mohist.yaml.serialization;
+package com.mohistmc.yaml.serialization;
 
+import com.mohistmc.yaml.Configuration;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import red.mohist.yaml.util.Validate;
+import com.mohistmc.yaml.util.Validate;
 
 /**
- * Utility class for storing and retrieving classes for {@link red.mohist.yaml.Configuration}.
+ * Utility class for storing and retrieving classes for {@link Configuration}.
  */
 public class ConfigurationSerialization {
     public static final String SERIALIZED_TYPE_KEY = "==";

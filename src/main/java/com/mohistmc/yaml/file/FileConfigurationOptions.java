@@ -1,8 +1,8 @@
-package red.mohist.yaml.file;
+package com.mohistmc.yaml.file;
 
-import red.mohist.yaml.Configuration;
-import red.mohist.yaml.MemoryConfiguration;
-import red.mohist.yaml.MemoryConfigurationOptions;
+import com.mohistmc.yaml.Configuration;
+import com.mohistmc.yaml.MemoryConfiguration;
+import com.mohistmc.yaml.MemoryConfigurationOptions;
 
 /**
  * Various settings for controlling the input and output of a {@link

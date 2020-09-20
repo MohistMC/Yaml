@@ -1,7 +1,7 @@
-package red.mohist.yaml;
+package com.mohistmc.yaml;
 
+import com.mohistmc.yaml.util.Validate;
 import java.util.Map;
-import red.mohist.yaml.util.Validate;
 
 /**
  * This is a {@link Configuration} implementation that does not save or load

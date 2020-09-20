@@ -1,4 +1,4 @@
-package red.mohist.yaml;
+package com.mohistmc.yaml;
 
 /**
  * Exception thrown when attempting to load an invalid {@link Configuration}

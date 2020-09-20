@@ -1,4 +1,4 @@
-package red.mohist.yaml.serialization;
+package com.mohistmc.yaml.serialization;
 
 import java.util.Map;
 

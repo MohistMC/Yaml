@@ -1,5 +1,8 @@
-package red.mohist.yaml.file;
+package com.mohistmc.yaml.file;
 
+import com.mohistmc.yaml.util.Charsets;
+import com.mohistmc.yaml.util.Files;
+import com.mohistmc.yaml.util.Validate;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,12 +13,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
-import red.mohist.yaml.Configuration;
-import red.mohist.yaml.InvalidConfigurationException;
-import red.mohist.yaml.MemoryConfiguration;
-import red.mohist.yaml.util.Charsets;
-import red.mohist.yaml.util.Files;
-import red.mohist.yaml.util.Validate;
+import com.mohistmc.yaml.Configuration;
+import com.mohistmc.yaml.InvalidConfigurationException;
+import com.mohistmc.yaml.MemoryConfiguration;
 
 /**
  * This is a base class for all File based implementations of {@link

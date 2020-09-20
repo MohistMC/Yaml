@@ -1,4 +1,4 @@
-package red.mohist.yaml.util;
+package com.mohistmc.yaml.util;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,9 +1,9 @@
-package red.mohist.yaml;
+package com.mohistmc.yaml;
 
+import com.mohistmc.yaml.serialization.ConfigurationSerializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import red.mohist.yaml.serialization.ConfigurationSerializable;
 
 /**
  * Represents a section of a {@link Configuration}

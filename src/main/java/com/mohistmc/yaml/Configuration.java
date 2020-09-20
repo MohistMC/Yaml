@@ -1,4 +1,4 @@
-package red.mohist.yaml;
+package com.mohistmc.yaml;
 
 import java.util.Map;
 

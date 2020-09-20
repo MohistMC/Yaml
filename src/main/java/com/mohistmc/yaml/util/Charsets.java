@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package red.mohist.yaml.util;
+package com.mohistmc.yaml.util;
 
 import java.nio.charset.Charset;
 

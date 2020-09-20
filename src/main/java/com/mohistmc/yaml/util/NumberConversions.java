@@ -1,4 +1,4 @@
-package red.mohist.yaml.util;
+package com.mohistmc.yaml.util;
 
 /**
  * Utils for casting number types to other number types

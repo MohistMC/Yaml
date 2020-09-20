@@ -1,6 +1,6 @@
-package red.mohist.yaml.file;
+package com.mohistmc.yaml.file;
 
-import red.mohist.yaml.util.Validate;
+import com.mohistmc.yaml.util.Validate;
 
 /**
  * Various settings for controlling the input and output of a {@link
