@@ -12,17 +12,20 @@ repositories {
     }
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-compileJava.options.encoding = 'UTF-8'
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(16)
+    }
+}
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 dependencies {
-    compile 'org.yaml:snakeyaml:1.26'
+    implementation 'org.yaml:snakeyaml:1.29'
 }
 
 jar {
     from {
-        configurations.runtime.collect{zipTree(it)}
+        configurations.compileClasspath.collect{zipTree(it)}
     }
 }
 
