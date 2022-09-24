@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group = 'com.mohistmc.yaml'
-version = 0.1
+version = 0.3
 
 repositories {
     mavenCentral()
@@ -14,19 +14,13 @@ repositories {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(8)
     }
 }
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 dependencies {
-    implementation 'org.yaml:snakeyaml:1.30'
-}
-
-jar {
-    from {
-        configurations.compileClasspath.collect{zipTree(it)}
-    }
+    implementation 'org.yaml:snakeyaml:1.32'
 }
 
 publishing {
