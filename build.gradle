@@ -20,7 +20,9 @@ java {
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 dependencies {
-    implementation 'org.yaml:snakeyaml:1.32'
+    implementation 'org.yaml:snakeyaml:1.33'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'org.jetbrains:annotations:23.0.0'
 }
 
 publishing {

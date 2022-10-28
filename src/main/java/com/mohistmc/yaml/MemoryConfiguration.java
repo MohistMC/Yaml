@@ -1,7 +1,9 @@
 package com.mohistmc.yaml;
 
-import com.mohistmc.yaml.util.Validate;
+import com.google.common.base.Preconditions;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This is a {@link Configuration} implementation that does not save or load
@@ -24,13 +26,13 @@ public class MemoryConfiguration extends MemorySection implements Configuration 
      * @param defaults Default value provider
      * @throws IllegalArgumentException Thrown if defaults is null
      */
-    public MemoryConfiguration(Configuration defaults) {
+    public MemoryConfiguration(@Nullable Configuration defaults) {
         this.defaults = defaults;
     }
 
     @Override
-    public void addDefault(String path, Object value) {
-        Validate.notNull(path, "Path may not be null");
+    public void addDefault(@NotNull String path, @Nullable Object value) {
+        Preconditions.checkArgument(path != null, "Path may not be null");
 
         if (defaults == null) {
             defaults = new MemoryConfiguration();
@@ -39,35 +41,47 @@ public class MemoryConfiguration extends MemorySection implements Configuration 
         defaults.set(path, value);
     }
 
-    public void addDefaults(Map<String, Object> defaults) {
-        Validate.notNull(defaults, "Defaults may not be null");
+    @Override
+    public void addDefaults(@NotNull Map<String, Object> defaults) {
+        Preconditions.checkArgument(defaults != null, "Defaults may not be null");
 
         for (Map.Entry<String, Object> entry : defaults.entrySet()) {
             addDefault(entry.getKey(), entry.getValue());
         }
     }
 
-    public void addDefaults(Configuration defaults) {
-        Validate.notNull(defaults, "Defaults may not be null");
+    @Override
+    public void addDefaults(@NotNull Configuration defaults) {
+        Preconditions.checkArgument(defaults != null, "Defaults may not be null");
 
-        addDefaults(defaults.getValues(true));
+        for (String key : defaults.getKeys(true)) {
+            if (!defaults.isConfigurationSection(key)) {
+                addDefault(key, defaults.get(key));
+            }
+        }
     }
 
-    public void setDefaults(Configuration defaults) {
-        Validate.notNull(defaults, "Defaults may not be null");
+    @Override
+    public void setDefaults(@NotNull Configuration defaults) {
+        Preconditions.checkArgument(defaults != null, "Defaults may not be null");
 
         this.defaults = defaults;
     }
 
+    @Override
+    @Nullable
     public Configuration getDefaults() {
         return defaults;
     }
 
+    @Nullable
     @Override
     public ConfigurationSection getParent() {
         return null;
     }
 
+    @Override
+    @NotNull
     public MemoryConfigurationOptions options() {
         if (options == null) {
             options = new MemoryConfigurationOptions(this);
