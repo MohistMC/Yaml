@@ -12,12 +12,10 @@ repositories {
     }
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
-    }
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
-[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 dependencies {
     implementation 'org.yaml:snakeyaml:1.33'
