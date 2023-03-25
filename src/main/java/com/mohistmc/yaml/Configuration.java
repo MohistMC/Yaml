@@ -1,8 +1,10 @@
 package com.mohistmc.yaml;
 
-import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
+
 /**
  * Represents a source of configurable options and settings
  */
@@ -17,12 +19,12 @@ public interface Configuration extends ConfigurationSection {
      * If value is null, the value will be removed from the default
      * Configuration source.
      *
-     * @param path Path of the value to set.
+     * @param path  Path of the value to set.
      * @param value Value to set the default to.
      * @throws IllegalArgumentException Thrown if path is null.
      */
     @Override
-    public void addDefault(@NotNull String path, @Nullable Object value);
+    void addDefault(@NotNull String path, @Nullable Object value);
 
     /**
      * Sets the default values of the given paths as provided.
@@ -34,7 +36,7 @@ public interface Configuration extends ConfigurationSection {
      * @param defaults A map of Path{@literal ->}Values to add to defaults.
      * @throws IllegalArgumentException Thrown if defaults is null.
      */
-    public void addDefaults(@NotNull Map<String, Object> defaults);
+    void addDefaults(@NotNull Map<String, Object> defaults);
 
     /**
      * Sets the default values of the given paths as provided.
@@ -45,24 +47,12 @@ public interface Configuration extends ConfigurationSection {
      * <p>
      * This method will not hold a reference to the specified Configuration,
      * nor will it automatically update if that Configuration ever changes. If
-     * you require this, you should set the default source with {@link
-     * #setDefaults(org.bukkit.configuration.Configuration)}.
+     * you require this, you should set the default source with .
      *
      * @param defaults A configuration holding a list of defaults to copy.
      * @throws IllegalArgumentException Thrown if defaults is null or this.
      */
-    public void addDefaults(@NotNull Configuration defaults);
-
-    /**
-     * Sets the source of all default values for this {@link Configuration}.
-     * <p>
-     * If a previous source was set, or previous default values were defined,
-     * then they will not be copied to the new source.
-     *
-     * @param defaults New source of default values for this configuration.
-     * @throws IllegalArgumentException Thrown if defaults is null or this.
-     */
-    public void setDefaults(@NotNull Configuration defaults);
+    void addDefaults(@NotNull Configuration defaults);
 
     /**
      * Gets the source {@link Configuration} for this configuration.
@@ -73,8 +63,18 @@ public interface Configuration extends ConfigurationSection {
      *
      * @return Configuration source for default values, or null if none exist.
      */
-    @Nullable
-    public Configuration getDefaults();
+    @Nullable Configuration getDefaults();
+
+    /**
+     * Sets the source of all default values for this {@link Configuration}.
+     * <p>
+     * If a previous source was set, or previous default values were defined,
+     * then they will not be copied to the new source.
+     *
+     * @param defaults New source of default values for this configuration.
+     * @throws IllegalArgumentException Thrown if defaults is null or this.
+     */
+    void setDefaults(@NotNull Configuration defaults);
 
     /**
      * Gets the {@link ConfigurationOptions} for this {@link Configuration}.
@@ -83,7 +83,6 @@ public interface Configuration extends ConfigurationSection {
      *
      * @return Options for this configuration
      */
-    @NotNull
-    public ConfigurationOptions options();
+    @NotNull ConfigurationOptions options();
 }
 

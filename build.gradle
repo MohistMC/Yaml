@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group = 'com.mohistmc.yaml'
-version = 0.3
+version = 0.4
 
 repositories {
     mavenCentral()
@@ -18,9 +18,9 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 dependencies {
-    implementation 'org.yaml:snakeyaml:1.33'
+    implementation 'org.yaml:snakeyaml:2.0'
     implementation 'com.google.guava:guava:31.1-jre'
-    implementation 'org.jetbrains:annotations:23.0.0'
+    implementation 'org.jetbrains:annotations:24.0.1'
 }
 
 publishing {

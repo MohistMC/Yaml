@@ -1,9 +1,10 @@
 package com.mohistmc.yaml;
 
 import com.google.common.base.Preconditions;
-import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * This is a {@link Configuration} implementation that does not save or load
@@ -17,7 +18,8 @@ public class MemoryConfiguration extends MemorySection implements Configuration 
     /**
      * Creates an empty {@link MemoryConfiguration} with no default values.
      */
-    public MemoryConfiguration() {}
+    public MemoryConfiguration() {
+    }
 
     /**
      * Creates an empty {@link MemoryConfiguration} using the specified {@link
@@ -62,16 +64,16 @@ public class MemoryConfiguration extends MemorySection implements Configuration 
     }
 
     @Override
+    @Nullable
+    public Configuration getDefaults() {
+        return defaults;
+    }
+
+    @Override
     public void setDefaults(@NotNull Configuration defaults) {
         Preconditions.checkArgument(defaults != null, "Defaults may not be null");
 
         this.defaults = defaults;
-    }
-
-    @Override
-    @Nullable
-    public Configuration getDefaults() {
-        return defaults;
     }
 
     @Nullable

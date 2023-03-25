@@ -1,9 +1,10 @@
 package com.mohistmc.yaml.file;
 
 import com.google.common.base.Preconditions;
-import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 
 /**
@@ -47,14 +48,6 @@ public class YamlConfigurationOptions extends FileConfigurationOptions {
 
     @NotNull
     @Override
-    @Deprecated
-    public YamlConfigurationOptions header(@Nullable String value) {
-        super.header(value);
-        return this;
-    }
-
-    @NotNull
-    @Override
     public YamlConfigurationOptions setFooter(@Nullable List<String> value) {
         super.setFooter(value);
         return this;
@@ -64,14 +57,6 @@ public class YamlConfigurationOptions extends FileConfigurationOptions {
     @Override
     public YamlConfigurationOptions parseComments(boolean value) {
         super.parseComments(value);
-        return this;
-    }
-
-    @NotNull
-    @Override
-    @Deprecated
-    public YamlConfigurationOptions copyHeader(boolean value) {
-        super.copyHeader(value);
         return this;
     }
 

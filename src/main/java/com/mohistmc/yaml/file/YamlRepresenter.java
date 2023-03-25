@@ -4,12 +4,12 @@ import com.mohistmc.yaml.ConfigurationSection;
 import com.mohistmc.yaml.serialization.ConfigurationSerializable;
 import com.mohistmc.yaml.serialization.ConfigurationSerialization;
 import org.jetbrains.annotations.NotNull;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.representer.Representer;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class YamlRepresenter extends Representer {
 
@@ -46,7 +46,7 @@ public class YamlRepresenter extends Representer {
         @Override
         public Node representData(@NotNull Object data) {
             ConfigurationSerializable serializable = (ConfigurationSerializable) data;
-            Map<String, Object> values = new LinkedHashMap<String, Object>();
+            Map<String, Object> values = new LinkedHashMap<>();
             values.put(ConfigurationSerialization.SERIALIZED_TYPE_KEY, ConfigurationSerialization.getAlias(serializable.getClass()));
             values.putAll(serializable.serialize());
 
