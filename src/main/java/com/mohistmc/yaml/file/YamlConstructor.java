@@ -15,14 +15,6 @@ import java.util.Map;
 
 public class YamlConstructor extends SafeConstructor {
 
-    /**
-     * @deprecated options required
-     */
-    @Deprecated
-    public YamlConstructor() {
-        this(new LoaderOptions());
-    }
-
     public YamlConstructor(@NotNull LoaderOptions loaderOptions) {
         super(loaderOptions);
         this.yamlConstructors.put(Tag.MAP, new ConstructCustomObject());

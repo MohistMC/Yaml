@@ -13,14 +13,6 @@ import java.util.Map;
 
 public class YamlRepresenter extends Representer {
 
-    /**
-     * @deprecated options required
-     */
-    @Deprecated
-    public YamlRepresenter() {
-        this(new DumperOptions());
-    }
-
     public YamlRepresenter(@NotNull DumperOptions options) {
         super(options);
         this.multiRepresenters.put(ConfigurationSection.class, new RepresentConfigurationSection());
