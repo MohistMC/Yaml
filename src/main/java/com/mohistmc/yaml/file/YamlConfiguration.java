@@ -1,9 +1,9 @@
 package com.mohistmc.yaml.file;
 
-import com.google.common.base.Preconditions;
 import com.mohistmc.yaml.Configuration;
 import com.mohistmc.yaml.ConfigurationSection;
 import com.mohistmc.yaml.InvalidConfigurationException;
+import com.mohistmc.yaml.YamlUtil;
 import com.mohistmc.yaml.serialization.ConfigurationSerialization;
 import org.jetbrains.annotations.NotNull;
 import org.yaml.snakeyaml.DumperOptions;
@@ -76,7 +76,7 @@ public class YamlConfiguration extends FileConfiguration {
      */
     @NotNull
     public static YamlConfiguration loadConfiguration(@NotNull File file) {
-        Preconditions.checkArgument(file != null, "File cannot be null");
+        YamlUtil.checkArgument(file != null, "File cannot be null");
 
         YamlConfiguration config = new YamlConfiguration();
 
@@ -103,7 +103,7 @@ public class YamlConfiguration extends FileConfiguration {
      */
     @NotNull
     public static YamlConfiguration loadConfiguration(@NotNull Reader reader) {
-        Preconditions.checkArgument(reader != null, "Stream cannot be null");
+        YamlUtil.checkArgument(reader != null, "Stream cannot be null");
 
         YamlConfiguration config = new YamlConfiguration();
 
@@ -142,7 +142,7 @@ public class YamlConfiguration extends FileConfiguration {
 
     @Override
     public void loadFromString(@NotNull String contents) throws InvalidConfigurationException {
-        Preconditions.checkArgument(contents != null, "Contents cannot be null");
+        YamlUtil.checkArgument(contents != null, "Contents cannot be null");
         yamlLoaderOptions.setProcessComments(options().parseComments());
 
         MappingNode node;

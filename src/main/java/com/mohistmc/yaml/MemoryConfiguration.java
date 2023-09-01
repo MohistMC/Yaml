@@ -1,6 +1,5 @@
 package com.mohistmc.yaml;
 
-import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +33,7 @@ public class MemoryConfiguration extends MemorySection implements Configuration 
 
     @Override
     public void addDefault(@NotNull String path, @Nullable Object value) {
-        Preconditions.checkArgument(path != null, "Path may not be null");
+        YamlUtil.checkArgument(path != null, "Path may not be null");
 
         if (defaults == null) {
             defaults = new MemoryConfiguration();
@@ -45,7 +44,7 @@ public class MemoryConfiguration extends MemorySection implements Configuration 
 
     @Override
     public void addDefaults(@NotNull Map<String, Object> defaults) {
-        Preconditions.checkArgument(defaults != null, "Defaults may not be null");
+        YamlUtil.checkArgument(defaults != null, "Defaults may not be null");
 
         for (Map.Entry<String, Object> entry : defaults.entrySet()) {
             addDefault(entry.getKey(), entry.getValue());
@@ -54,7 +53,7 @@ public class MemoryConfiguration extends MemorySection implements Configuration 
 
     @Override
     public void addDefaults(@NotNull Configuration defaults) {
-        Preconditions.checkArgument(defaults != null, "Defaults may not be null");
+        YamlUtil.checkArgument(defaults != null, "Defaults may not be null");
 
         for (String key : defaults.getKeys(true)) {
             if (!defaults.isConfigurationSection(key)) {
@@ -71,7 +70,7 @@ public class MemoryConfiguration extends MemorySection implements Configuration 
 
     @Override
     public void setDefaults(@NotNull Configuration defaults) {
-        Preconditions.checkArgument(defaults != null, "Defaults may not be null");
+        YamlUtil.checkArgument(defaults != null, "Defaults may not be null");
 
         this.defaults = defaults;
     }

@@ -1,6 +1,6 @@
 package com.mohistmc.yaml.file;
 
-import com.google.common.base.Preconditions;
+import com.mohistmc.yaml.YamlUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -81,8 +81,8 @@ public class YamlConfigurationOptions extends FileConfigurationOptions {
      */
     @NotNull
     public YamlConfigurationOptions indent(int value) {
-        Preconditions.checkArgument(value >= 2, "Indent must be at least 2 characters");
-        Preconditions.checkArgument(value <= 9, "Indent cannot be greater than 9 characters");
+        YamlUtil.checkArgument(value >= 2, "Indent must be at least 2 characters");
+        YamlUtil.checkArgument(value <= 9, "Indent cannot be greater than 9 characters");
 
         this.indent = value;
         return this;

@@ -1,7 +1,5 @@
 package com.mohistmc.yaml;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.mohistmc.yaml.serialization.ConfigurationSerializable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -60,14 +58,14 @@ public class MemorySection implements ConfigurationSection {
      *                                  if parent contains no root Configuration.
      */
     protected MemorySection(@NotNull ConfigurationSection parent, @NotNull String path) {
-        Preconditions.checkArgument(parent != null, "Parent cannot be null");
-        Preconditions.checkArgument(path != null, "Path cannot be null");
+        YamlUtil.checkArgument(parent != null, "Parent cannot be null");
+        YamlUtil.checkArgument(path != null, "Path cannot be null");
 
         this.path = path;
         this.parent = parent;
         this.root = parent.getRoot();
 
-        Preconditions.checkArgument(root != null, "Path cannot be orphaned");
+        YamlUtil.checkArgument(root != null, "Path cannot be orphaned");
 
         this.fullPath = createPath(parent, path);
     }
@@ -102,7 +100,7 @@ public class MemorySection implements ConfigurationSection {
      */
     @NotNull
     public static String createPath(@NotNull ConfigurationSection section, @Nullable String key, @Nullable ConfigurationSection relativeTo) {
-        Preconditions.checkArgument(section != null, "Cannot create path without a section");
+        YamlUtil.checkArgument(section != null, "Cannot create path without a section");
         Configuration root = section.getRoot();
         if (root == null) {
             throw new IllegalStateException("Cannot create path without a root");
@@ -214,7 +212,7 @@ public class MemorySection implements ConfigurationSection {
 
     @Override
     public void addDefault(@NotNull String path, @Nullable Object value) {
-        Preconditions.checkArgument(path != null, "Path cannot be null");
+        YamlUtil.checkArgument(path != null, "Path cannot be null");
 
         Configuration root = getRoot();
         if (root == null) {
@@ -243,7 +241,7 @@ public class MemorySection implements ConfigurationSection {
 
     @Override
     public void set(@NotNull String path, @Nullable Object value) {
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(path), "Cannot set to an empty path");
+        YamlUtil.checkArgument(!YamlUtil.isNullOrEmpty(path), "Cannot set to an empty path");
 
         Configuration root = getRoot();
         if (root == null) {
@@ -296,7 +294,7 @@ public class MemorySection implements ConfigurationSection {
     @Contract("_, !null -> !null")
     @Nullable
     public Object get(@NotNull String path, @Nullable Object def) {
-        Preconditions.checkArgument(path != null, "Path cannot be null");
+        YamlUtil.checkArgument(path != null, "Path cannot be null");
 
         if (path.length() == 0) {
             return this;
@@ -334,7 +332,7 @@ public class MemorySection implements ConfigurationSection {
     @Override
     @NotNull
     public ConfigurationSection createSection(@NotNull String path) {
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(path), "Cannot create section at empty path");
+        YamlUtil.checkArgument(!YamlUtil.isNullOrEmpty(path), "Cannot create section at empty path");
         Configuration root = getRoot();
         if (root == null) {
             throw new IllegalStateException("Cannot create section without a root");
@@ -766,7 +764,7 @@ public class MemorySection implements ConfigurationSection {
     @Nullable
     @Override
     public <T> T getObject(@NotNull String path, @NotNull Class<T> clazz) {
-        Preconditions.checkArgument(clazz != null, "Class cannot be null");
+        YamlUtil.checkArgument(clazz != null, "Class cannot be null");
         Object def = getDefault(path);
         return getObject(path, clazz, (def != null && clazz.isInstance(def)) ? clazz.cast(def) : null);
     }
@@ -775,7 +773,7 @@ public class MemorySection implements ConfigurationSection {
     @Nullable
     @Override
     public <T> T getObject(@NotNull String path, @NotNull Class<T> clazz, @Nullable T def) {
-        Preconditions.checkArgument(clazz != null, "Class cannot be null");
+        YamlUtil.checkArgument(clazz != null, "Class cannot be null");
         Object val = get(path, def);
         return (val != null && clazz.isInstance(val)) ? clazz.cast(val) : def;
     }
@@ -820,7 +818,7 @@ public class MemorySection implements ConfigurationSection {
 
     @Nullable
     protected Object getDefault(@NotNull String path) {
-        Preconditions.checkArgument(path != null, "Path cannot be null");
+        YamlUtil.checkArgument(path != null, "Path cannot be null");
 
         Configuration root = getRoot();
         Configuration defaults = root == null ? null : root.getDefaults();
@@ -904,7 +902,7 @@ public class MemorySection implements ConfigurationSection {
 
     @Nullable
     private SectionPathData getSectionPathData(@NotNull String path) {
-        Preconditions.checkArgument(path != null, "Path cannot be null");
+        YamlUtil.checkArgument(path != null, "Path cannot be null");
 
         Configuration root = getRoot();
         if (root == null) {

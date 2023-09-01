@@ -1,11 +1,9 @@
 package com.mohistmc.yaml.file;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Preconditions;
-import com.google.common.io.Files;
 import com.mohistmc.yaml.Configuration;
 import com.mohistmc.yaml.InvalidConfigurationException;
 import com.mohistmc.yaml.MemoryConfiguration;
+import com.mohistmc.yaml.YamlUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 /**
  * This is a base class for all File based implementations of {@link
@@ -59,13 +58,13 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException Thrown when file is null.
      */
     public void save(@NotNull File file) throws IOException {
-        Preconditions.checkArgument(file != null, "File cannot be null");
+        YamlUtil.checkArgument(file != null, "File cannot be null");
 
-        Files.createParentDirs(file);
+        YamlUtil.createParentDirs(file);
 
         String data = saveToString();
 
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), Charsets.UTF_8)) {
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
             writer.write(data);
         }
     }
@@ -86,7 +85,7 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException Thrown when file is null.
      */
     public void save(@NotNull String file) throws IOException {
-        Preconditions.checkArgument(file != null, "File cannot be null");
+        YamlUtil.checkArgument(file != null, "File cannot be null");
 
         save(new File(file));
     }
@@ -118,11 +117,11 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException      Thrown when file is null.
      */
     public void load(@NotNull File file) throws FileNotFoundException, IOException, InvalidConfigurationException {
-        Preconditions.checkArgument(file != null, "File cannot be null");
+        YamlUtil.checkArgument(file != null, "File cannot be null");
 
         final FileInputStream stream = new FileInputStream(file);
 
-        load(new InputStreamReader(stream, Charsets.UTF_8));
+        load(new InputStreamReader(stream, StandardCharsets.UTF_8));
     }
 
     /**
@@ -176,7 +175,7 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException      Thrown when file is null.
      */
     public void load(@NotNull String file) throws FileNotFoundException, IOException, InvalidConfigurationException {
-        Preconditions.checkArgument(file != null, "File cannot be null");
+        YamlUtil.checkArgument(file != null, "File cannot be null");
 
         load(new File(file));
     }

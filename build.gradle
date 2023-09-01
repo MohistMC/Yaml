@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group = 'com.mohistmc'
-version = 0.4
+version = 0.5
 
 repositories {
     mavenCentral()
@@ -19,7 +19,6 @@ tasks.withType(JavaCompile).configureEach {
 
 dependencies {
     implementation 'org.yaml:snakeyaml:2.0'
-    implementation 'com.google.guava:guava:31.1-jre'
     implementation 'org.jetbrains:annotations:24.0.1'
 }
 
@@ -27,7 +26,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId project.group
-            artifactId project.name
+            artifactId project.name.toLowerCase()
             version project.version
             from components.java
         }

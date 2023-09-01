@@ -1,7 +1,7 @@
 package com.mohistmc.yaml.serialization;
 
-import com.google.common.base.Preconditions;
 import com.mohistmc.yaml.Configuration;
+import com.mohistmc.yaml.YamlUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -233,7 +233,7 @@ public class ConfigurationSerialization {
     }
 
     public ConfigurationSerializable deserialize(Map<String, ?> args) {
-        Preconditions.checkArgument(args != null, "Args must not be null");
+        YamlUtil.checkArgument(args != null, "Args must not be null");
 
         ConfigurationSerializable result = null;
         Method method = null;
