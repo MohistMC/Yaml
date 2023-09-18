@@ -18,7 +18,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 dependencies {
-    implementation 'org.yaml:snakeyaml:2.0'
+    implementation 'org.yaml:snakeyaml:2.2'
     implementation 'org.jetbrains:annotations:24.0.1'
 }
 
