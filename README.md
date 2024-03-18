@@ -1,7 +1,6 @@
 # Yaml
-Bukkit Yaml Configuration implementation now as a single library!
 
-Original project https://github.com/l89669/bukkitYaml.git
+Original project https://github.com/Osiris-Team/Dyml
 
 Gradle
 ```
@@ -10,6 +9,6 @@ Gradle
  }
 
 dependencies {
-    implementation 'com.mohistmc:yaml:0.5'
+    implementation 'com.mohistmc:yaml:0.7'
 }
 ```  

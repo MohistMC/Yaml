@@ -2,23 +2,18 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group = 'com.mohistmc'
-version = 0.6
+version = project.version
 
 repositories {
     mavenCentral()
-    maven {
-        name = 'sonatype-oss-repo'
-        url = 'https://oss.sonatype.org/content/groups/public/'
-    }
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.encoding = 'UTF-8'
 }
 
 dependencies {
-    implementation 'org.yaml:snakeyaml:2.2'
     implementation 'org.jetbrains:annotations:24.0.1'
 }
 
@@ -37,7 +32,7 @@ publishing {
 
         maven {
             name = "Mohist-Maven"
-            setUrl("file:/Mohist-Maven/maven/")
+            setUrl("file:/maven/")
         }
     }
 }
