@@ -147,18 +147,10 @@ public class Yaml {
 
     /**
      * Initialises the {@link Yaml} object with useful features enabled. <br>
-     * See {@link #Yaml(InputStream, OutputStream, boolean, boolean)} for details.
+     * See {@link #Yaml(InputStream, OutputStream, boolean)} for details.
      */
     public Yaml(InputStream inputStream, OutputStream outputStream) {
-        this(inputStream, outputStream, true, false);
-    }
-
-    /**
-     * Initialises the {@link Yaml} object with useful features enabled. <br>
-     * See {@link #Yaml(InputStream, OutputStream, boolean, boolean)} for details.
-     */
-    public Yaml(InputStream inputStream, OutputStream outputStream, boolean isDebugEnabled) {
-        this(inputStream, outputStream, true, isDebugEnabled);
+        this(inputStream, outputStream, true);
     }
 
     /**
@@ -169,12 +161,11 @@ public class Yaml {
      * @param isPostProcessingEnabled Enabled by default. <br>
      *                                You can also enable/disable specific post-processing options individually: <br>
      *                                See {@link #isPostProcessingEnabled} for details.
-     * @param isDebugEnabled          Disabled by default. Shows debugging stuff.
      */
-    public Yaml(InputStream inputStream, OutputStream outputStream, boolean isPostProcessingEnabled, boolean isDebugEnabled) {
+    public Yaml(InputStream inputStream, OutputStream outputStream, boolean isPostProcessingEnabled) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
-        init(isPostProcessingEnabled, isDebugEnabled);
+        init(isPostProcessingEnabled);
     }
 
 
@@ -183,15 +174,7 @@ public class Yaml {
      * See {@link #Yaml(String, String, boolean, boolean)} for details.
      */
     public Yaml(String inString, String outString) {
-        this(inString, outString, true, false);
-    }
-
-    /**
-     * Initialises the {@link Yaml} object with useful features enabled. <br>
-     * See {@link #Yaml(String, String, boolean, boolean)} for details.
-     */
-    public Yaml(String inString, String outString, boolean isDebugEnabled) {
-        this(inString, outString, true, isDebugEnabled);
+        this(inString, outString, true);
     }
 
     /**
@@ -202,29 +185,20 @@ public class Yaml {
      * @param isPostProcessingEnabled Enabled by default. <br>
      *                                You can also enable/disable specific post-processing options individually: <br>
      *                                See {@link #isPostProcessingEnabled} for details.
-     * @param isDebugEnabled          Disabled by default. Shows debugging stuff.
      */
-    public Yaml(String inString, String outString, boolean isPostProcessingEnabled, boolean isDebugEnabled) {
+    public Yaml(String inString, String outString, boolean isPostProcessingEnabled) {
         this.inString = inString;
         this.outString = outString;
-        init(isPostProcessingEnabled, isDebugEnabled);
+        init(isPostProcessingEnabled);
     }
 
 
     /**
      * Initialises the {@link Yaml} object with useful features enabled. <br>
-     * See {@link #Yaml(File, boolean, boolean)} for details.
+     * See {@link #Yaml(File, boolean)} for details.
      */
     public Yaml(File file) {
-        this(file, true, false);
-    }
-
-    /**
-     * Initialises the {@link Yaml} object with useful features enabled. <br>
-     * See {@link #Yaml(File, boolean, boolean)} for details.
-     */
-    public Yaml(File file, boolean isDebugEnabled) {
-        this(file, true, isDebugEnabled);
+        this(file, true);
     }
 
     /**
@@ -234,28 +208,19 @@ public class Yaml {
      * @param isPostProcessingEnabled Enabled by default. <br>
      *                                You can also enable/disable specific post-processing options individually: <br>
      *                                See {@link #isPostProcessingEnabled} for details.
-     * @param isDebugEnabled          Disabled by default. Shows debugging stuff.
      */
-    public Yaml(File file, boolean isPostProcessingEnabled, boolean isDebugEnabled) {
+    public Yaml(File file, boolean isPostProcessingEnabled) {
         this.file = file;
-        init(isPostProcessingEnabled, isDebugEnabled);
+        init(isPostProcessingEnabled);
     }
 
 
     /**
      * Initialises the {@link Yaml} object with useful features enabled. <br>
-     * See {@link #Yaml(String, boolean, boolean)} for details.
+     * See {@link #Yaml(String, boolean)} for details.
      */
     public Yaml(String filePath) {
-        this(filePath, true, false);
-    }
-
-    /**
-     * Initialises the {@link Yaml} object with useful features enabled. <br>
-     * See {@link #Yaml(String, boolean, boolean)} for details.
-     */
-    public Yaml(String filePath, boolean isDebugEnabled) {
-        this(filePath, true, isDebugEnabled);
+        this(filePath, true);
     }
 
     /**
@@ -265,15 +230,14 @@ public class Yaml {
      * @param isPostProcessingEnabled Enabled by default. <br>
      *                                You can also enable/disable specific post-processing options individually: <br>
      *                                See {@link #isPostProcessingEnabled} for details.
-     * @param isDebugEnabled          Disabled by default. Shows debugging stuff.
      */
-    public Yaml(String filePath, boolean isPostProcessingEnabled, boolean isDebugEnabled) {
+    public Yaml(String filePath, boolean isPostProcessingEnabled) {
         this.file = new File(filePath);
-        init(isPostProcessingEnabled, isDebugEnabled);
+        init(isPostProcessingEnabled);
     }
 
 
-    private void init(boolean isPostProcessingEnabled, boolean isDebugEnabled) {
+    private void init(boolean isPostProcessingEnabled) {
         this.isPostProcessingEnabled = isPostProcessingEnabled;
     }
 
