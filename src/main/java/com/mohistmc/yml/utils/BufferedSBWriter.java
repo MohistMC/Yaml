@@ -2,7 +2,6 @@ package com.mohistmc.yml.utils;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
@@ -23,27 +22,27 @@ public class BufferedSBWriter extends BufferedWriter {
     }
 
     @Override
-    public void write(@NotNull char[] cbuf) throws IOException {
+    public void write(char @NotNull [] cbuf) {
         builder.append(cbuf);
     }
 
     @Override
-    public void write(@NotNull String str) throws IOException {
+    public void write(@NotNull String str) {
         builder.append(str);
     }
 
     @Override
-    public void write(int c) throws IOException {
+    public void write(int c) {
         builder.append((char) c);
     }
 
     @Override
-    public void write(@NotNull char[] cbuf, int off, int len) throws IOException {
+    public void write(char @NotNull [] cbuf, int off, int len) {
         builder.append(Arrays.copyOfRange(cbuf, off, len));
     }
 
     @Override
-    public void write(@NotNull String s, int off, int len) throws IOException {
+    public void write(@NotNull String s, int off, int len) {
         builder.append(Arrays.copyOfRange(s.toCharArray(), off, len));
     }
 }

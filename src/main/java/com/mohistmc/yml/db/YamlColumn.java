@@ -15,16 +15,7 @@ import java.util.List;
  *
  * @see YamlRow
  */
-public class YamlColumn {
-    private final YamlSection columnModule;
-
-    public YamlColumn(YamlSection columnModule) {
-        this.columnModule = columnModule;
-    }
-
-    public YamlSection getColumnModule() {
-        return columnModule;
-    }
+public record YamlColumn(YamlSection columnModule) {
 
     public String getName() {
         return columnModule.getLastKey();

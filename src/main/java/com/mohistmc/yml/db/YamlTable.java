@@ -17,16 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class YamlTable {
-    private final YamlSection tableModule;
-
-    public YamlTable(YamlSection tableModule) {
+public record YamlTable(YamlSection tableModule) {
+    public YamlTable {
         Objects.requireNonNull(tableModule);
-        this.tableModule = tableModule;
-    }
-
-    public YamlSection getTableModule() {
-        return tableModule;
     }
 
     public String getName() {

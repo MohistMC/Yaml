@@ -109,10 +109,9 @@ class YamlWriter {
             // or... the other part is hard to explain.
             if (!currentKey.equals(currentBeforeKey) || (i != 0 && !section.getKeyAt(i - 1).equals(beforeModule.getKeyAt(i - 1)))) {
 
-                String spaces = "";
-                for (int j = 0; j < i; j++) { // The current keys index/position in the list defines how much spaces are needed.
-                    spaces = spaces + "  ";
-                }
+                StringBuilder spaces = new StringBuilder();
+                // The current keys index/position in the list defines how much spaces are needed.
+                spaces.append("  ".repeat(i));
 
                 if (i == (keysSize - 1)) { // Only write top line breaks and comments to the last key in the list
                     for (int j = 0; j < section.getCountTopLineBreaks(); j++) {
@@ -238,7 +237,7 @@ class YamlWriter {
             if (comments.isEmpty()) return false;
             comments.get(i);
             return true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return false;
     }

@@ -356,12 +356,12 @@ class YamlReader {
                 //   - second value # value-comment <---
                 YamlSection oldModule = yaml.getLastLoadedModule(); // The last added module, which has to contain a key, otherwise its not added
                 if (beforeLine.isCommentFound() && !beforeLine.isKeyFound() && !beforeLine.isHyphenFound()) { // In this special case, we put the comments from the last line/module together
-                    String c = currentLine.getRawComment();
+                    StringBuilder c = new StringBuilder(currentLine.getRawComment());
                     for (String comment :
                             beforeModule.getComments()) {
-                        c = c + " # " + comment;
+                        c.append(" # ").append(comment);
                     }
-                    currentLine.setRawComment(c);
+                    currentLine.setRawComment(c.toString());
                 }
                 // Since the key has a null value we need to remove it. Example:
                 // list: <--- This is the first null value
@@ -435,12 +435,12 @@ class YamlReader {
             //     - value2 <---
             YamlSection oldModule = yaml.getLastLoadedModule();
             if (beforeLine.isCommentFound() && !beforeLine.isKeyFound() && !beforeLine.isHyphenFound()) { // In this special case, we put the comments from the last line/module together
-                String c = currentLine.getRawComment();
+                StringBuilder c = new StringBuilder(currentLine.getRawComment());
                 for (String comment :
                         beforeModule.getComments()) {
-                    c = c + " # " + comment;
+                    c.append(" # ").append(comment);
                 }
-                currentLine.setRawComment(c);
+                currentLine.setRawComment(c.toString());
             }
             if (!beforeLine.isHyphenFound() && oldModule.getValues().size() == 1 && oldModule.getValues().get(0).asString() == null) {
                 oldModule.getValues().remove(0);

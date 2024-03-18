@@ -2,6 +2,7 @@ package com.mohistmc.yml.db;
 
 import com.mohistmc.yml.SmartString;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -17,14 +18,7 @@ import java.util.Objects;
  *
  * @see YamlColumn
  */
-public class YamlRow {
-    private final int rowIndex;
-    private final Map<SmartString, YamlColumn> valuesAndColumns;
-
-    public YamlRow(int rowIndex, Map<SmartString, YamlColumn> valuesAndColumns) {
-        this.rowIndex = rowIndex;
-        this.valuesAndColumns = valuesAndColumns;
-    }
+public record YamlRow(int rowIndex, Map<SmartString, YamlColumn> valuesAndColumns) {
 
     /**
      * Values are read from left to right. Example table:
@@ -38,27 +32,6 @@ public class YamlRow {
      */
     public List<SmartString> getValues() {
         return new ArrayList<>(valuesAndColumns.keySet());
-    }
-
-    /**
-     * This rows index position in the table. Example table:
-     * <pre>
-     *     column1 | column2
-     *     =================
-     *     rock    | paper   <--- Index: 0
-     *     tree    | grass   <--- Index: 1
-     * </pre>
-     */
-    public int getRowIndex() {
-        return rowIndex;
-    }
-
-
-    /**
-     * Returns a map with values mapped to their columns.
-     */
-    public Map<SmartString, YamlColumn> getValuesAndColumns() {
-        return valuesAndColumns;
     }
 
     public YamlColumn getColumnFromValue(SmartString value) {
@@ -82,7 +55,7 @@ public class YamlRow {
             index++;
         }
         if (val == null)
-            throw new NullPointerException("Column '" + column.getName() + "' couldn't be found in: " + values);
+            throw new NullPointerException("Column '" + column.getName() + "' couldn't be found in: " + Arrays.toString(values));
         else
             return val;
     }

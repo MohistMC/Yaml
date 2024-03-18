@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class FileEvent {
     public final WatchedDir parentDirectory;
-    public final WatchEvent watchEvent;
+    public final WatchEvent<?> watchEvent;
     public final File file;
     public final Path path;
     public final long id;

@@ -8,6 +8,8 @@
 
 package com.mohistmc.yml.exceptions;
 
+import java.util.Objects;
+
 public class DuplicateKeyException extends Exception {
     private final String message;
 
@@ -21,10 +23,7 @@ public class DuplicateKeyException extends Exception {
 
     public DuplicateKeyException(String message, String fileName, String key) {
         super();
-        if (message == null)
-            this.message = "Duplicate key '" + key + "' found in '" + fileName + "' file.";
-        else
-            this.message = message;
+        this.message = Objects.requireNonNullElseGet(message, () -> "Duplicate key '" + key + "' found in '" + fileName + "' file.");
     }
 
     @Override
