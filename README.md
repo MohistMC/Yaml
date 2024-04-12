@@ -1,6 +1,9 @@
 # Yaml
+Bukkit Yaml Configuration implementation now as a single library!
 
-Original project https://github.com/Osiris-Team/Dyml
+Original project https://github.com/l89669/bukkitYaml.git  
+SnakeYaml([**1db25c2f**](https://github.com/snakeyaml/snakeyaml/commit/1db25c2f))
+
 
 Gradle
 ```
@@ -9,6 +12,6 @@ Gradle
  }
 
 dependencies {
-    implementation 'com.mohistmc:yaml:0.7'
+    implementation 'com.mohistmc:yaml:0.8'
 }
 ```  
