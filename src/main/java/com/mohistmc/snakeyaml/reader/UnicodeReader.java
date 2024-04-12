@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2008, SnakeYAML
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -42,79 +42,77 @@ import java.nio.charset.StandardCharsets;
  */
 public class UnicodeReader extends Reader {
 
-  private static final Charset UTF8 = StandardCharsets.UTF_8;
-  private static final Charset UTF16BE = StandardCharsets.UTF_16BE;
-  private static final Charset UTF16LE = StandardCharsets.UTF_16LE;
+    private static final Charset UTF8 = StandardCharsets.UTF_8;
+    private static final Charset UTF16BE = StandardCharsets.UTF_16BE;
+    private static final Charset UTF16LE = StandardCharsets.UTF_16LE;
+    private static final int BOM_SIZE = 3;
+    PushbackInputStream internalIn;
+    InputStreamReader internalIn2 = null;
 
-  PushbackInputStream internalIn;
-  InputStreamReader internalIn2 = null;
-
-  private static final int BOM_SIZE = 3;
-
-  /**
-   * @param in InputStream to be read
-   */
-  public UnicodeReader(InputStream in) {
-    internalIn = new PushbackInputStream(in, BOM_SIZE);
-  }
-
-  /**
-   * Get stream encoding or NULL if stream is uninitialized. Call init() or read() method to
-   * initialize it.
-   *
-   * @return the name of the character encoding being used by this stream.
-   */
-  public String getEncoding() {
-    return internalIn2.getEncoding();
-  }
-
-  /**
-   * Read-ahead four bytes and check for BOM marks. Extra bytes are unread back to the stream, only
-   * BOM bytes are skipped.
-   *
-   * @throws IOException if InputStream cannot be created
-   */
-  protected void init() throws IOException {
-    if (internalIn2 != null) {
-      return;
+    /**
+     * @param in InputStream to be read
+     */
+    public UnicodeReader(InputStream in) {
+        internalIn = new PushbackInputStream(in, BOM_SIZE);
     }
 
-    Charset encoding;
-    byte[] bom = new byte[BOM_SIZE];
-    int n, unread;
-    n = internalIn.read(bom, 0, bom.length);
-
-    if ((bom[0] == (byte) 0xEF) && (bom[1] == (byte) 0xBB) && (bom[2] == (byte) 0xBF)) {
-      encoding = UTF8;
-      unread = n - 3;
-    } else if ((bom[0] == (byte) 0xFE) && (bom[1] == (byte) 0xFF)) {
-      encoding = UTF16BE;
-      unread = n - 2;
-    } else if ((bom[0] == (byte) 0xFF) && (bom[1] == (byte) 0xFE)) {
-      encoding = UTF16LE;
-      unread = n - 2;
-    } else {
-      // Unicode BOM mark not found, unread all bytes
-      encoding = UTF8;
-      unread = n;
+    /**
+     * Get stream encoding or NULL if stream is uninitialized. Call init() or read() method to
+     * initialize it.
+     *
+     * @return the name of the character encoding being used by this stream.
+     */
+    public String getEncoding() {
+        return internalIn2.getEncoding();
     }
 
-    if (unread > 0) {
-      internalIn.unread(bom, (n - unread), unread);
+    /**
+     * Read-ahead four bytes and check for BOM marks. Extra bytes are unread back to the stream, only
+     * BOM bytes are skipped.
+     *
+     * @throws IOException if InputStream cannot be created
+     */
+    protected void init() throws IOException {
+        if (internalIn2 != null) {
+            return;
+        }
+
+        Charset encoding;
+        byte[] bom = new byte[BOM_SIZE];
+        int n, unread;
+        n = internalIn.read(bom, 0, bom.length);
+
+        if ((bom[0] == (byte) 0xEF) && (bom[1] == (byte) 0xBB) && (bom[2] == (byte) 0xBF)) {
+            encoding = UTF8;
+            unread = n - 3;
+        } else if ((bom[0] == (byte) 0xFE) && (bom[1] == (byte) 0xFF)) {
+            encoding = UTF16BE;
+            unread = n - 2;
+        } else if ((bom[0] == (byte) 0xFF) && (bom[1] == (byte) 0xFE)) {
+            encoding = UTF16LE;
+            unread = n - 2;
+        } else {
+            // Unicode BOM mark not found, unread all bytes
+            encoding = UTF8;
+            unread = n;
+        }
+
+        if (unread > 0) {
+            internalIn.unread(bom, (n - unread), unread);
+        }
+
+        // Use given encoding
+        CharsetDecoder decoder = encoding.newDecoder().onUnmappableCharacter(CodingErrorAction.REPORT);
+        internalIn2 = new InputStreamReader(internalIn, decoder);
     }
 
-    // Use given encoding
-    CharsetDecoder decoder = encoding.newDecoder().onUnmappableCharacter(CodingErrorAction.REPORT);
-    internalIn2 = new InputStreamReader(internalIn, decoder);
-  }
+    public void close() throws IOException {
+        init();
+        internalIn2.close();
+    }
 
-  public void close() throws IOException {
-    init();
-    internalIn2.close();
-  }
-
-  public int read(char[] cbuf, int off, int len) throws IOException {
-    init();
-    return internalIn2.read(cbuf, off, len);
-  }
+    public int read(char[] cbuf, int off, int len) throws IOException {
+        init();
+        return internalIn2.read(cbuf, off, len);
+    }
 }

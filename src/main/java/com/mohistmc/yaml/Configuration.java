@@ -63,7 +63,8 @@ public interface Configuration extends ConfigurationSection {
      *
      * @return Configuration source for default values, or null if none exist.
      */
-    @Nullable Configuration getDefaults();
+    @Nullable
+    Configuration getDefaults();
 
     /**
      * Sets the source of all default values for this {@link Configuration}.
@@ -83,6 +84,7 @@ public interface Configuration extends ConfigurationSection {
      *
      * @return Options for this configuration
      */
-    @NotNull ConfigurationOptions options();
+    @NotNull
+    ConfigurationOptions options();
 }
 

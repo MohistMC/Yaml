@@ -33,5 +33,6 @@ public interface ConfigurationSerializable {
      *
      * @return Map containing the current state of this class
      */
-    @NotNull Map<String, Object> serialize();
+    @NotNull
+    Map<String, Object> serialize();
 }

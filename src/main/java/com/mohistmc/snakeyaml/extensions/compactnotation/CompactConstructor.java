@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2008, SnakeYAML
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -23,8 +23,8 @@ import com.mohistmc.snakeyaml.nodes.Node;
 import com.mohistmc.snakeyaml.nodes.NodeTuple;
 import com.mohistmc.snakeyaml.nodes.ScalarNode;
 import com.mohistmc.snakeyaml.nodes.SequenceNode;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -36,218 +36,216 @@ import java.util.regex.Pattern;
  */
 public class CompactConstructor extends Constructor {
 
-  private static final Pattern GUESS_COMPACT = Pattern
-      .compile("\\p{Alpha}.*\\s*\\((?:,?\\s*(?:(?:\\w*)|(?:\\p{Alpha}\\w*\\s*=.+))\\s*)+\\)");
-  private static final Pattern FIRST_PATTERN = Pattern.compile("(\\p{Alpha}.*)(\\s*)\\((.*?)\\)");
-  private static final Pattern PROPERTY_NAME_PATTERN =
-      Pattern.compile("\\s*(\\p{Alpha}\\w*)\\s*=(.+)");
-  private Construct compactConstruct;
+    private static final Pattern GUESS_COMPACT = Pattern
+            .compile("\\p{Alpha}.*\\s*\\((?:,?\\s*(?:(?:\\w*)|(?:\\p{Alpha}\\w*\\s*=.+))\\s*)+\\)");
+    private static final Pattern FIRST_PATTERN = Pattern.compile("(\\p{Alpha}.*)(\\s*)\\((.*?)\\)");
+    private static final Pattern PROPERTY_NAME_PATTERN =
+            Pattern.compile("\\s*(\\p{Alpha}\\w*)\\s*=(.+)");
+    private Construct compactConstruct;
 
-  /**
-   * Create with provided options
-   *
-   * @param loadingConfig - options
-   */
-  public CompactConstructor(LoaderOptions loadingConfig) {
-    super(loadingConfig);
-  }
-
-  /**
-   * Create with defaults
-   */
-  public CompactConstructor() {
-    super(new LoaderOptions());
-  }
-
-  protected Object constructCompactFormat(ScalarNode node, com.mohistmc.snakeyaml.extensions.compactnotation.CompactData data) {
-    try {
-      Object obj = createInstance(node, data);
-      Map<String, Object> properties = new HashMap<>(data.getProperties());
-      setProperties(obj, properties);
-      return obj;
-    } catch (Exception e) {
-      throw new YAMLException(e);
+    /**
+     * Create with provided options
+     *
+     * @param loadingConfig - options
+     */
+    public CompactConstructor(LoaderOptions loadingConfig) {
+        super(loadingConfig);
     }
-  }
 
-  protected Object createInstance(ScalarNode node, com.mohistmc.snakeyaml.extensions.compactnotation.CompactData data) throws Exception {
-    Class<?> clazz = getClassForName(data.getPrefix());
-    Class<?>[] args = new Class[data.getArguments().size()];
-    for (int i = 0; i < args.length; i++) {
-      // assume all the arguments are Strings
-      args[i] = String.class;
+    /**
+     * Create with defaults
+     */
+    public CompactConstructor() {
+        super(new LoaderOptions());
     }
-    java.lang.reflect.Constructor<?> c = clazz.getDeclaredConstructor(args);
-    c.setAccessible(true);
-    return c.newInstance(data.getArguments().toArray());
 
-  }
+    protected Object constructCompactFormat(ScalarNode node, com.mohistmc.snakeyaml.extensions.compactnotation.CompactData data) {
+        try {
+            Object obj = createInstance(node, data);
+            Map<String, Object> properties = new HashMap<>(data.getProperties());
+            setProperties(obj, properties);
+            return obj;
+        } catch (Exception e) {
+            throw new YAMLException(e);
+        }
+    }
 
-  protected void setProperties(Object bean, Map<String, Object> data) throws Exception {
-    if (data == null) {
-      throw new NullPointerException("Data for Compact Object Notation cannot be null.");
-    }
-    for (Map.Entry<String, Object> entry : data.entrySet()) {
-      String key = entry.getKey();
-      Property property = getPropertyUtils().getProperty(bean.getClass(), key);
-      try {
-        property.set(bean, entry.getValue());
-      } catch (IllegalArgumentException e) {
-        throw new YAMLException("Cannot set property='" + key + "' with value='" + data.get(key)
-            + "' (" + data.get(key).getClass() + ") in " + bean);
-      }
-    }
-  }
+    protected Object createInstance(ScalarNode node, com.mohistmc.snakeyaml.extensions.compactnotation.CompactData data) throws Exception {
+        Class<?> clazz = getClassForName(data.getPrefix());
+        Class<?>[] args = new Class[data.getArguments().size()];
+        // assume all the arguments are Strings
+        Arrays.fill(args, String.class);
+        java.lang.reflect.Constructor<?> c = clazz.getDeclaredConstructor(args);
+        c.setAccessible(true);
+        return c.newInstance(data.getArguments().toArray());
 
-  public com.mohistmc.snakeyaml.extensions.compactnotation.CompactData getCompactData(String scalar) {
-    if (!scalar.endsWith(")")) {
-      return null;
     }
-    if (scalar.indexOf('(') < 0) {
-      return null;
-    }
-    Matcher m = FIRST_PATTERN.matcher(scalar);
-    if (m.matches()) {
-      String tag = m.group(1).trim();
-      String content = m.group(3);
-      com.mohistmc.snakeyaml.extensions.compactnotation.CompactData data = new com.mohistmc.snakeyaml.extensions.compactnotation.CompactData(tag);
-      if (content.length() == 0) {
-        return data;
-      }
-      String[] names = content.split("\\s*,\\s*");
-        for (String section : names) {
-            if (section.indexOf('=') < 0) {
-                data.getArguments().add(section);
-            } else {
-                Matcher sm = PROPERTY_NAME_PATTERN.matcher(section);
-                if (sm.matches()) {
-                    String name = sm.group(1);
-                    String value = sm.group(2).trim();
-                    data.getProperties().put(name, value);
-                } else {
-                    return null;
-                }
+
+    protected void setProperties(Object bean, Map<String, Object> data) throws Exception {
+        if (data == null) {
+            throw new NullPointerException("Data for Compact Object Notation cannot be null.");
+        }
+        for (Map.Entry<String, Object> entry : data.entrySet()) {
+            String key = entry.getKey();
+            Property property = getPropertyUtils().getProperty(bean.getClass(), key);
+            try {
+                property.set(bean, entry.getValue());
+            } catch (IllegalArgumentException e) {
+                throw new YAMLException("Cannot set property='" + key + "' with value='" + data.get(key)
+                        + "' (" + data.get(key).getClass() + ") in " + bean);
             }
         }
-      return data;
     }
-    return null;
-  }
 
-  /**
-   * Create if it does not exist
-   *
-   * @return instance
-   */
-  private Construct getCompactConstruct() {
-    if (compactConstruct == null) {
-      compactConstruct = createCompactConstruct();
-    }
-    return compactConstruct;
-  }
-
-  /**
-   * Create
-   *
-   * @return new instance
-   */
-  protected Construct createCompactConstruct() {
-    return new ConstructCompactObject();
-  }
-
-  @Override
-  protected Construct getConstructor(Node node) {
-    if (node instanceof MappingNode mnode) {
-        List<NodeTuple> list = mnode.getValue();
-      if (list.size() == 1) {
-        NodeTuple tuple = list.get(0);
-        Node key = tuple.keyNode();
-        if (key instanceof ScalarNode scalar) {
-            if (GUESS_COMPACT.matcher(scalar.getValue()).matches()) {
-            return getCompactConstruct();
-          }
+    public com.mohistmc.snakeyaml.extensions.compactnotation.CompactData getCompactData(String scalar) {
+        if (!scalar.endsWith(")")) {
+            return null;
         }
-      }
-    } else if (node instanceof ScalarNode scalar) {
-        if (GUESS_COMPACT.matcher(scalar.getValue()).matches()) {
-        return getCompactConstruct();
-      }
+        if (scalar.indexOf('(') < 0) {
+            return null;
+        }
+        Matcher m = FIRST_PATTERN.matcher(scalar);
+        if (m.matches()) {
+            String tag = m.group(1).trim();
+            String content = m.group(3);
+            com.mohistmc.snakeyaml.extensions.compactnotation.CompactData data = new com.mohistmc.snakeyaml.extensions.compactnotation.CompactData(tag);
+            if (content.isEmpty()) {
+                return data;
+            }
+            String[] names = content.split("\\s*,\\s*");
+            for (String section : names) {
+                if (section.indexOf('=') < 0) {
+                    data.getArguments().add(section);
+                } else {
+                    Matcher sm = PROPERTY_NAME_PATTERN.matcher(section);
+                    if (sm.matches()) {
+                        String name = sm.group(1);
+                        String value = sm.group(2).trim();
+                        data.getProperties().put(name, value);
+                    } else {
+                        return null;
+                    }
+                }
+            }
+            return data;
+        }
+        return null;
     }
-    return super.getConstructor(node);
-  }
 
-  /**
-   * Custom ConstructMapping
-   */
-  public class ConstructCompactObject extends ConstructMapping {
+    /**
+     * Create if it does not exist
+     *
+     * @return instance
+     */
+    private Construct getCompactConstruct() {
+        if (compactConstruct == null) {
+            compactConstruct = createCompactConstruct();
+        }
+        return compactConstruct;
+    }
+
+    /**
+     * Create
+     *
+     * @return new instance
+     */
+    protected Construct createCompactConstruct() {
+        return new ConstructCompactObject();
+    }
 
     @Override
-    public void construct2ndStep(Node node, Object object) {
-      // Compact Object Notation may contain only one entry
-      MappingNode mnode = (MappingNode) node;
-      NodeTuple nodeTuple = mnode.getValue().iterator().next();
-
-      Node valueNode = nodeTuple.valueNode();
-
-      if (valueNode instanceof MappingNode) {
-        valueNode.setType(object.getClass());
-        constructJavaBean2ndStep((MappingNode) valueNode, object);
-      } else {
-        // value is a list
-        applySequence(object, constructSequence((SequenceNode) valueNode));
-      }
+    protected Construct getConstructor(Node node) {
+        if (node instanceof MappingNode mnode) {
+            List<NodeTuple> list = mnode.getValue();
+            if (list.size() == 1) {
+                NodeTuple tuple = list.get(0);
+                Node key = tuple.keyNode();
+                if (key instanceof ScalarNode scalar) {
+                    if (GUESS_COMPACT.matcher(scalar.getValue()).matches()) {
+                        return getCompactConstruct();
+                    }
+                }
+            }
+        } else if (node instanceof ScalarNode scalar) {
+            if (GUESS_COMPACT.matcher(scalar.getValue()).matches()) {
+                return getCompactConstruct();
+            }
+        }
+        return super.getConstructor(node);
     }
 
-    /*
-     * MappingNode and ScalarNode end up here only they assumed to be a compact object's
-     * representation (@see getConstructor(Node) above)
+    protected void applySequence(Object bean, List<?> value) {
+        try {
+            Property property =
+                    getPropertyUtils().getProperty(bean.getClass(), getSequencePropertyName(bean.getClass()));
+            property.set(bean, value);
+        } catch (Exception e) {
+            throw new YAMLException(e);
+        }
+    }
+
+    /**
+     * Provide the name of the property which is used when the entries form a sequence. The property
+     * must be a List.
+     *
+     * @param bean the class to provide exactly one List property
+     * @return name of the List property
      */
-    public Object construct(Node node) {
-      ScalarNode tmpNode;
-      if (node instanceof MappingNode mnode) {
-        // Compact Object Notation may contain only one entry
-          NodeTuple nodeTuple = mnode.getValue().iterator().next();
-        node.setTwoStepsConstruction(true);
-        tmpNode = (ScalarNode) nodeTuple.keyNode();
-        // return constructScalar((ScalarNode) keyNode);
-      } else {
-        tmpNode = (ScalarNode) node;
-      }
-
-      CompactData data = getCompactData(tmpNode.getValue());
-      if (data == null) { // TODO: Should we throw an exception here ?
-        return constructScalar(tmpNode);
-      }
-      return constructCompactFormat(tmpNode, data);
+    protected String getSequencePropertyName(Class<?> bean) {
+        Set<Property> properties = getPropertyUtils().getProperties(bean);
+        properties.removeIf(property -> !List.class.isAssignableFrom(property.getType()));
+        if (properties.isEmpty()) {
+            throw new YAMLException("No list property found in " + bean);
+        } else if (properties.size() > 1) {
+            throw new YAMLException("Many list properties found in " + bean
+                    + "; Please override getSequencePropertyName() to specify which property to use.");
+        }
+        return properties.iterator().next().getName();
     }
-  }
 
-  protected void applySequence(Object bean, List<?> value) {
-    try {
-      Property property =
-          getPropertyUtils().getProperty(bean.getClass(), getSequencePropertyName(bean.getClass()));
-      property.set(bean, value);
-    } catch (Exception e) {
-      throw new YAMLException(e);
-    }
-  }
+    /**
+     * Custom ConstructMapping
+     */
+    public class ConstructCompactObject extends ConstructMapping {
 
-  /**
-   * Provide the name of the property which is used when the entries form a sequence. The property
-   * must be a List.
-   *
-   * @param bean the class to provide exactly one List property
-   * @return name of the List property
-   */
-  protected String getSequencePropertyName(Class<?> bean) {
-    Set<Property> properties = getPropertyUtils().getProperties(bean);
-    properties.removeIf(property -> !List.class.isAssignableFrom(property.getType()));
-    if (properties.size() == 0) {
-      throw new YAMLException("No list property found in " + bean);
-    } else if (properties.size() > 1) {
-      throw new YAMLException("Many list properties found in " + bean
-          + "; Please override getSequencePropertyName() to specify which property to use.");
+        @Override
+        public void construct2ndStep(Node node, Object object) {
+            // Compact Object Notation may contain only one entry
+            MappingNode mnode = (MappingNode) node;
+            NodeTuple nodeTuple = mnode.getValue().iterator().next();
+
+            Node valueNode = nodeTuple.valueNode();
+
+            if (valueNode instanceof MappingNode) {
+                valueNode.setType(object.getClass());
+                constructJavaBean2ndStep((MappingNode) valueNode, object);
+            } else {
+                // value is a list
+                applySequence(object, constructSequence((SequenceNode) valueNode));
+            }
+        }
+
+        /*
+         * MappingNode and ScalarNode end up here only they assumed to be a compact object's
+         * representation (@see getConstructor(Node) above)
+         */
+        public Object construct(Node node) {
+            ScalarNode tmpNode;
+            if (node instanceof MappingNode mnode) {
+                // Compact Object Notation may contain only one entry
+                NodeTuple nodeTuple = mnode.getValue().iterator().next();
+                node.setTwoStepsConstruction(true);
+                tmpNode = (ScalarNode) nodeTuple.keyNode();
+                // return constructScalar((ScalarNode) keyNode);
+            } else {
+                tmpNode = (ScalarNode) node;
+            }
+
+            CompactData data = getCompactData(tmpNode.getValue());
+            if (data == null) { // TODO: Should we throw an exception here ?
+                return constructScalar(tmpNode);
+            }
+            return constructCompactFormat(tmpNode, data);
+        }
     }
-    return properties.iterator().next().getName();
-  }
 }

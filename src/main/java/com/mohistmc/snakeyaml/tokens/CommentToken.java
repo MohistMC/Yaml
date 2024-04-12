@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2008, SnakeYAML
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -16,51 +16,50 @@ package com.mohistmc.snakeyaml.tokens;
 import com.mohistmc.snakeyaml.comments.CommentType;
 import com.mohistmc.snakeyaml.error.Mark;
 import java.util.Objects;
+import lombok.Getter;
 
 /**
  * Comment for humans
  */
 public final class CommentToken extends com.mohistmc.snakeyaml.tokens.Token {
 
-  private final CommentType type;
-  private final String value;
+    private final CommentType type;
+    /**
+     * -- GETTER --
+     *  getter
+     *
+     * @return text
+     */
+    @Getter
+    private final String value;
 
-  /**
-   * Create
-   *
-   * @param type - kind
-   * @param value - text
-   * @param startMark - start
-   * @param endMark - end
-   */
-  public CommentToken(CommentType type, String value, Mark startMark, Mark endMark) {
-    super(startMark, endMark);
-    Objects.requireNonNull(type);
-    this.type = type;
-    Objects.requireNonNull(value);
-    this.value = value;
-  }
+    /**
+     * Create
+     *
+     * @param type - kind
+     * @param value - text
+     * @param startMark - start
+     * @param endMark - end
+     */
+    public CommentToken(CommentType type, String value, Mark startMark, Mark endMark) {
+        super(startMark, endMark);
+        Objects.requireNonNull(type);
+        this.type = type;
+        Objects.requireNonNull(value);
+        this.value = value;
+    }
 
-  /**
-   * getter
-   *
-   * @return the kind
-   */
-  public CommentType getCommentType() {
-    return this.type;
-  }
+    /**
+     * getter
+     *
+     * @return the kind
+     */
+    public CommentType getCommentType() {
+        return this.type;
+    }
 
-  /**
-   * getter
-   *
-   * @return text
-   */
-  public String getValue() {
-    return this.value;
-  }
-
-  @Override
-  public ID getTokenId() {
-    return ID.Comment;
-  }
+    @Override
+    public ID getTokenId() {
+        return ID.Comment;
+    }
 }

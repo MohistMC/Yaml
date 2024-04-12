@@ -27,7 +27,8 @@ public interface ConfigurationSection {
      *             list.
      * @return Set of keys contained within this ConfigurationSection.
      */
-    @NotNull Set<String> getKeys(boolean deep);
+    @NotNull
+    Set<String> getKeys(boolean deep);
 
     /**
      * Gets a Map containing all keys and their values for this section.
@@ -43,7 +44,8 @@ public interface ConfigurationSection {
      *             list.
      * @return Map of keys and values of this section.
      */
-    @NotNull Map<String, Object> getValues(boolean deep);
+    @NotNull
+    Map<String, Object> getValues(boolean deep);
 
     /**
      * Checks if this {@link ConfigurationSection} contains the given path.
@@ -106,7 +108,8 @@ public interface ConfigurationSection {
      *
      * @return Path of this section relative to its root
      */
-    @Nullable String getCurrentPath();
+    @Nullable
+    String getCurrentPath();
 
     /**
      * Gets the name of this individual {@link ConfigurationSection}, in the
@@ -117,7 +120,8 @@ public interface ConfigurationSection {
      *
      * @return Name of this section
      */
-    @NotNull String getName();
+    @NotNull
+    String getName();
 
     /**
      * Gets the root {@link Configuration} that contains this {@link
@@ -131,7 +135,8 @@ public interface ConfigurationSection {
      *
      * @return Root configuration containing this section.
      */
-    @Nullable Configuration getRoot();
+    @Nullable
+    Configuration getRoot();
 
     /**
      * Gets the parent {@link ConfigurationSection} that directly contains
@@ -144,7 +149,8 @@ public interface ConfigurationSection {
      *
      * @return Parent section containing this section.
      */
-    @Nullable ConfigurationSection getParent();
+    @Nullable
+    ConfigurationSection getParent();
 
     /**
      * Gets the requested Object by path.
@@ -156,7 +162,8 @@ public interface ConfigurationSection {
      * @param path Path of the Object to get.
      * @return Requested Object.
      */
-    @Nullable Object get(@NotNull String path);
+    @Nullable
+    Object get(@NotNull String path);
 
     /**
      * Gets the requested Object by path, returning a default value if not
@@ -171,7 +178,8 @@ public interface ConfigurationSection {
      * @return Requested Object.
      */
     @Contract("_, !null -> !null")
-    @Nullable Object get(@NotNull String path, @Nullable Object def);
+    @Nullable
+    Object get(@NotNull String path, @Nullable Object def);
 
     /**
      * Sets the specified path to the given value.
@@ -199,7 +207,8 @@ public interface ConfigurationSection {
      * @param path Path to create the section at.
      * @return Newly created section
      */
-    @NotNull ConfigurationSection createSection(@NotNull String path);
+    @NotNull
+    ConfigurationSection createSection(@NotNull String path);
 
     /**
      * Creates a {@link ConfigurationSection} at the specified path, with
@@ -213,7 +222,8 @@ public interface ConfigurationSection {
      * @param map  The values to used.
      * @return Newly created section
      */
-    @NotNull ConfigurationSection createSection(@NotNull String path, @NotNull Map<?, ?> map);
+    @NotNull
+    ConfigurationSection createSection(@NotNull String path, @NotNull Map<?, ?> map);
 
     // Primitives
 
@@ -227,7 +237,8 @@ public interface ConfigurationSection {
      * @param path Path of the String to get.
      * @return Requested String.
      */
-    @Nullable String getString(@NotNull String path);
+    @Nullable
+    String getString(@NotNull String path);
 
     /**
      * Gets the requested String by path, returning a default value if not
@@ -243,7 +254,8 @@ public interface ConfigurationSection {
      * @return Requested String.
      */
     @Contract("_, !null -> !null")
-    @Nullable String getString(@NotNull String path, @Nullable String def);
+    @Nullable
+    String getString(@NotNull String path, @Nullable String def);
 
     /**
      * Checks if the specified path is a String.
@@ -429,7 +441,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List.
      */
-    @Nullable List<?> getList(@NotNull String path);
+    @Nullable
+    List<?> getList(@NotNull String path);
 
     /**
      * Gets the requested List by path, returning a default value if not
@@ -445,7 +458,8 @@ public interface ConfigurationSection {
      * @return Requested List.
      */
     @Contract("_, !null -> !null")
-    @Nullable List<?> getList(@NotNull String path, @Nullable List<?> def);
+    @Nullable
+    List<?> getList(@NotNull String path, @Nullable List<?> def);
 
     /**
      * Checks if the specified path is a List.
@@ -473,7 +487,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of String.
      */
-    @NotNull List<String> getStringList(@NotNull String path);
+    @NotNull
+    List<String> getStringList(@NotNull String path);
 
     /**
      * Gets the requested List of Integer by path.
@@ -488,7 +503,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Integer.
      */
-    @NotNull List<Integer> getIntegerList(@NotNull String path);
+    @NotNull
+    List<Integer> getIntegerList(@NotNull String path);
 
     /**
      * Gets the requested List of Boolean by path.
@@ -503,7 +519,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Boolean.
      */
-    @NotNull List<Boolean> getBooleanList(@NotNull String path);
+    @NotNull
+    List<Boolean> getBooleanList(@NotNull String path);
 
     /**
      * Gets the requested List of Double by path.
@@ -518,7 +535,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Double.
      */
-    @NotNull List<Double> getDoubleList(@NotNull String path);
+    @NotNull
+    List<Double> getDoubleList(@NotNull String path);
 
     /**
      * Gets the requested List of Float by path.
@@ -533,7 +551,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Float.
      */
-    @NotNull List<Float> getFloatList(@NotNull String path);
+    @NotNull
+    List<Float> getFloatList(@NotNull String path);
 
     /**
      * Gets the requested List of Long by path.
@@ -548,7 +567,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Long.
      */
-    @NotNull List<Long> getLongList(@NotNull String path);
+    @NotNull
+    List<Long> getLongList(@NotNull String path);
 
     /**
      * Gets the requested List of Byte by path.
@@ -563,7 +583,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Byte.
      */
-    @NotNull List<Byte> getByteList(@NotNull String path);
+    @NotNull
+    List<Byte> getByteList(@NotNull String path);
 
     /**
      * Gets the requested List of Character by path.
@@ -578,7 +599,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Character.
      */
-    @NotNull List<Character> getCharacterList(@NotNull String path);
+    @NotNull
+    List<Character> getCharacterList(@NotNull String path);
 
     /**
      * Gets the requested List of Short by path.
@@ -593,7 +615,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Short.
      */
-    @NotNull List<Short> getShortList(@NotNull String path);
+    @NotNull
+    List<Short> getShortList(@NotNull String path);
 
     /**
      * Gets the requested List of Maps by path.
@@ -608,7 +631,8 @@ public interface ConfigurationSection {
      * @param path Path of the List to get.
      * @return Requested List of Maps.
      */
-    @NotNull List<Map<?, ?>> getMapList(@NotNull String path);
+    @NotNull
+    List<Map<?, ?>> getMapList(@NotNull String path);
 
     // Bukkit
 
@@ -630,7 +654,8 @@ public interface ConfigurationSection {
      * @param clazz the type of the requested object
      * @return Requested object
      */
-    @Nullable <T> T getObject(@NotNull String path, @NotNull Class<T> clazz);
+    @Nullable
+    <T> T getObject(@NotNull String path, @NotNull Class<T> clazz);
 
     /**
      * Gets the requested object at the given path, returning a default value if
@@ -656,7 +681,8 @@ public interface ConfigurationSection {
      * @return Requested object
      */
     @Contract("_, _, !null -> !null")
-    @Nullable <T extends Object> T getObject(@NotNull String path, @NotNull Class<T> clazz, @Nullable T def);
+    @Nullable
+    <T extends Object> T getObject(@NotNull String path, @NotNull Class<T> clazz, @Nullable T def);
 
     /**
      * Gets the requested {@link ConfigurationSerializable} object at the given
@@ -671,7 +697,8 @@ public interface ConfigurationSection {
      * @param clazz the type of {@link ConfigurationSerializable}
      * @return Requested {@link ConfigurationSerializable} object
      */
-    @Nullable <T extends ConfigurationSerializable> T getSerializable(@NotNull String path, @NotNull Class<T> clazz);
+    @Nullable
+    <T extends ConfigurationSerializable> T getSerializable(@NotNull String path, @NotNull Class<T> clazz);
 
     /**
      * Gets the requested {@link ConfigurationSerializable} object at the given
@@ -689,7 +716,8 @@ public interface ConfigurationSection {
      * @return Requested {@link ConfigurationSerializable} object
      */
     @Contract("_, _, !null -> !null")
-    @Nullable <T extends ConfigurationSerializable> T getSerializable(@NotNull String path, @NotNull Class<T> clazz, @Nullable T def);
+    @Nullable
+    <T extends ConfigurationSerializable> T getSerializable(@NotNull String path, @NotNull Class<T> clazz, @Nullable T def);
 
     /*
      * Gets the requested ConfigurationSection by path.
@@ -702,7 +730,8 @@ public interface ConfigurationSection {
      * @param path Path of the ConfigurationSection to get.
      * @return Requested ConfigurationSection.
      */
-    @Nullable ConfigurationSection getConfigurationSection(@NotNull String path);
+    @Nullable
+    ConfigurationSection getConfigurationSection(@NotNull String path);
 
     /**
      * Checks if the specified path is a ConfigurationSection.
@@ -728,7 +757,8 @@ public interface ConfigurationSection {
      *
      * @return Equivalent section in root configuration
      */
-    @Nullable ConfigurationSection getDefaultSection();
+    @Nullable
+    ConfigurationSection getDefaultSection();
 
     /**
      * Sets the default value in the root at the given path as provided.
@@ -761,7 +791,8 @@ public interface ConfigurationSection {
      * @return A unmodifiable list of the requested comments, every entry
      * represents one line.
      */
-    @NotNull List<String> getComments(@NotNull String path);
+    @NotNull
+    List<String> getComments(@NotNull String path);
 
     /**
      * Gets the requested inline comment list by path.
@@ -774,7 +805,8 @@ public interface ConfigurationSection {
      * @return A unmodifiable list of the requested comments, every entry
      * represents one line.
      */
-    @NotNull List<String> getInlineComments(@NotNull String path);
+    @NotNull
+    List<String> getInlineComments(@NotNull String path);
 
     /**
      * Sets the comment list at the specified path.

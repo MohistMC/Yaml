@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2008, SnakeYAML
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -16,59 +16,55 @@ package com.mohistmc.snakeyaml.tokens;
 import com.mohistmc.snakeyaml.error.Mark;
 import com.mohistmc.snakeyaml.error.YAMLException;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Directive Token
  *
  * @param <T> it is either Integer for the YAML directive or String for the TAG directive
  */
+@Getter
 public final class DirectiveToken<T> extends com.mohistmc.snakeyaml.tokens.Token {
 
-  private final String name;
-  private final List<T> value;
+    /**
+     * -- GETTER --
+     *  getter
+     *
+     * @return name
+     */
+    private final String name;
+    /**
+     * -- GETTER --
+     *  getter
+     *
+     * @return value
+     */
+    private final List<T> value;
 
-  /**
-   * Create
-   *
-   * @param name - directive name
-   * @param value - directive value
-   * @param startMark - start
-   * @param endMark - end
-   */
-  public DirectiveToken(String name, List<T> value, Mark startMark, Mark endMark) {
-    super(startMark, endMark);
-    this.name = name;
-    if (value != null && value.size() != 2) {
-      throw new YAMLException("Two strings must be provided instead of " + value.size());
+    /**
+     * Create
+     *
+     * @param name - directive name
+     * @param value - directive value
+     * @param startMark - start
+     * @param endMark - end
+     */
+    public DirectiveToken(String name, List<T> value, Mark startMark, Mark endMark) {
+        super(startMark, endMark);
+        this.name = name;
+        if (value != null && value.size() != 2) {
+            throw new YAMLException("Two strings must be provided instead of " + value.size());
+        }
+        this.value = value;
     }
-    this.value = value;
-  }
 
-  /**
-   * getter
-   *
-   * @return name
-   */
-  public String getName() {
-    return this.name;
-  }
-
-  /**
-   * getter
-   *
-   * @return value
-   */
-  public List<T> getValue() {
-    return this.value;
-  }
-
-  /**
-   * getter
-   *
-   * @return its identity
-   */
-  @Override
-  public ID getTokenId() {
-    return ID.Directive;
-  }
+    /**
+     * getter
+     *
+     * @return its identity
+     */
+    @Override
+    public ID getTokenId() {
+        return ID.Directive;
+    }
 }

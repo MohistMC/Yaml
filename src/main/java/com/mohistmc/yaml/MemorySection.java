@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 import static com.mohistmc.yaml.util.NumberConversions.toDouble;
 import static com.mohistmc.yaml.util.NumberConversions.toInt;
 import static com.mohistmc.yaml.util.NumberConversions.toLong;
@@ -109,14 +110,14 @@ public class MemorySection implements ConfigurationSection {
 
         StringBuilder builder = new StringBuilder();
         for (ConfigurationSection parent = section; (parent != null) && (parent != relativeTo); parent = parent.getParent()) {
-            if (builder.length() > 0) {
+            if (!builder.isEmpty()) {
                 builder.insert(0, separator);
             }
             builder.insert(0, parent.getName());
         }
 
-        if ((key != null) && (key.length() > 0)) {
-            if (builder.length() > 0) {
+        if ((key != null) && (!key.isEmpty())) {
+            if (!builder.isEmpty()) {
                 builder.append(separator);
             }
 
@@ -296,7 +297,7 @@ public class MemorySection implements ConfigurationSection {
     public Object get(@NotNull String path, @Nullable Object def) {
         YamlUtil.checkArgument(path != null, "Path cannot be null");
 
-        if (path.length() == 0) {
+        if (path.isEmpty()) {
             return this;
         }
 
@@ -936,13 +937,11 @@ public class MemorySection implements ConfigurationSection {
     @Override
     public String toString() {
         Configuration root = getRoot();
-        return new StringBuilder()
-                .append(getClass().getSimpleName())
-                .append("[path='")
-                .append(getCurrentPath())
-                .append("', root='")
-                .append(root == null ? null : root.getClass().getSimpleName())
-                .append("']")
-                .toString();
+        return getClass().getSimpleName() +
+                "[path='" +
+                getCurrentPath() +
+                "', root='" +
+                (root == null ? null : root.getClass().getSimpleName()) +
+                "']";
     }
 }
