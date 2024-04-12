@@ -1026,7 +1026,7 @@ public final class Emitter implements Emitable {
                 ch = text.charAt(end);
             }
             if (ch == null || "\"\\\u0085\u2028\u2029\uFEFF".indexOf(ch) != -1
-                    || !('\u0020' <= ch && ch <= '\u007E')) {
+                    || !(' ' <= ch && ch <= '~')) {
                 if (start < end) {
                     int len = end - start;
                     this.column += len;
@@ -1057,7 +1057,7 @@ public final class Emitter implements Emitable {
                         } else {
                             // if !allowUnicode or the character is not printable,
                             // we must encode it
-                            if (ch <= '\u00FF') {
+                            if (ch <= 'ÿ') {
                                 String s = "0" + Integer.toString(ch, 16);
                                 data = "\\x" + s.substring(s.length() - 2);
                             } else if (Character.charCount(codePoint) == 2) {

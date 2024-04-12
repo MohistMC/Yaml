@@ -15,7 +15,6 @@ package com.mohistmc.snakeyaml.constructor;
 
 import com.mohistmc.snakeyaml.LoaderOptions;
 import com.mohistmc.snakeyaml.error.YAMLException;
-import com.mohistmc.snakeyaml.external.biz.base64Coder.Base64Coder;
 import com.mohistmc.snakeyaml.nodes.MappingNode;
 import com.mohistmc.snakeyaml.nodes.Node;
 import com.mohistmc.snakeyaml.nodes.NodeId;
@@ -25,6 +24,7 @@ import com.mohistmc.snakeyaml.nodes.SequenceNode;
 import com.mohistmc.snakeyaml.nodes.Tag;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -462,7 +462,7 @@ public class SafeConstructor extends BaseConstructor {
         public Object construct(Node node) {
             // Ignore white spaces for base64 encoded scalar
             String noWhiteSpaces = constructScalar((ScalarNode) node).replaceAll("\\s", "");
-            return Base64Coder.decode(noWhiteSpaces.toCharArray());
+            return Base64.getDecoder().decode(noWhiteSpaces);
         }
     }
 

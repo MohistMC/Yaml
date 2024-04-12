@@ -15,7 +15,6 @@ package com.mohistmc.snakeyaml.representer;
 
 import com.mohistmc.snakeyaml.DumperOptions;
 import com.mohistmc.snakeyaml.error.YAMLException;
-import com.mohistmc.snakeyaml.external.biz.base64Coder.Base64Coder;
 import com.mohistmc.snakeyaml.nodes.Node;
 import com.mohistmc.snakeyaml.nodes.Tag;
 import com.mohistmc.snakeyaml.reader.StreamReader;
@@ -23,6 +22,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -133,8 +133,8 @@ class SafeRepresenter extends BaseRepresenter {
                 if (!checkValue.equals(value)) {
                     throw new YAMLException("invalid string value has occurred");
                 }
-                char[] binary = Base64Coder.encode(bytes);
-                value = String.valueOf(binary);
+                byte[] binary = Base64.getEncoder().encode(bytes);
+                value = Arrays.toString(binary);
                 style = DumperOptions.ScalarStyle.LITERAL;
             }
             // if no other scalar style is explicitly set, use literal style for
@@ -442,8 +442,8 @@ class SafeRepresenter extends BaseRepresenter {
     protected class RepresentByteArray implements com.mohistmc.snakeyaml.representer.Represent {
 
         public Node representData(Object data) {
-            char[] binary = Base64Coder.encode((byte[]) data);
-            return representScalar(Tag.BINARY, String.valueOf(binary), DumperOptions.ScalarStyle.LITERAL);
+            byte[] binary = Base64.getEncoder().encode((byte[]) data);
+            return representScalar(Tag.BINARY, Arrays.toString(binary), DumperOptions.ScalarStyle.LITERAL);
         }
     }
 

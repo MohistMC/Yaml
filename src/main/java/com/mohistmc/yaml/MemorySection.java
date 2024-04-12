@@ -924,10 +924,7 @@ public class MemorySection implements ConfigurationSection {
 
         String key = path.substring(i2);
         if (section == this) {
-            SectionPathData entry = map.get(key);
-            if (entry != null) {
-                return entry;
-            }
+            return map.get(key);
         } else if (section instanceof MemorySection) {
             return ((MemorySection) section).getSectionPathData(key);
         }

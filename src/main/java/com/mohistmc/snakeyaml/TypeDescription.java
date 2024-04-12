@@ -148,7 +148,7 @@ public class TypeDescription {
         for (PropertySubstitute p : values) {
             try {
                 p.setDelegate(discoverProperty(p.getName()));
-            } catch (YAMLException e) {
+            } catch (YAMLException ignored) {
             }
         }
         delegatesChecked = true;
@@ -270,8 +270,7 @@ public class TypeDescription {
         return false;
     }
 
-    public boolean setProperty(Object targetBean, String propertyName, Object value)
-            throws Exception {
+    public boolean setProperty(Object targetBean, String propertyName, Object value) {
         return false;
     }
 

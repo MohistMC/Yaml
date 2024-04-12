@@ -31,6 +31,7 @@ import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -204,10 +205,7 @@ public abstract class BaseRepresenter {
      * @return scala style
      */
     public ScalarStyle getDefaultScalarStyle() {
-        if (defaultScalarStyle == null) {
-            return ScalarStyle.PLAIN;
-        }
-        return defaultScalarStyle;
+        return Objects.requireNonNullElse(defaultScalarStyle, ScalarStyle.PLAIN);
     }
 
     /**

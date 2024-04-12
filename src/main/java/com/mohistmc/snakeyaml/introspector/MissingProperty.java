@@ -36,7 +36,7 @@ public class MissingProperty extends Property {
      * Setter does nothing.
      */
     @Override
-    public void set(Object object, Object value) throws Exception {
+    public void set(Object object, Object value) {
     }
 
     @Override

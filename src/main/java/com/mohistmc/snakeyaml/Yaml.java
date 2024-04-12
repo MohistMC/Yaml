@@ -676,7 +676,7 @@ public class Yaml {
         private final List<Event> events = new ArrayList<>(100);
 
         @Override
-        public void emit(Event event) throws IOException {
+        public void emit(Event event) {
             events.add(event);
         }
     }

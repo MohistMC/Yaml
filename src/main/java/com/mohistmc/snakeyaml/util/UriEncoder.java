@@ -13,9 +13,8 @@
  */
 package com.mohistmc.snakeyaml.util;
 
-import com.mohistmc.snakeyaml.external.com.google.gdata.util.common.base.Escaper;
-import com.mohistmc.snakeyaml.external.com.google.gdata.util.common.base.PercentEscaper;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
@@ -27,12 +26,6 @@ public abstract class UriEncoder {
 
     private static final CharsetDecoder UTF8Decoder =
             StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT);
-    // Include the [] chars to the SAFEPATHCHARS_URLENCODER to avoid
-    // its escape as required by spec. See
-    // http://yaml.org/spec/1.1/#escaping%20in%20URI/
-    private static final String SAFE_CHARS = PercentEscaper.SAFEPATHCHARS_URLENCODER + "[]/";
-    private static final Escaper escaper = new PercentEscaper(SAFE_CHARS, false);
-
     /**
      * Escape special characters with '%'
      *
@@ -40,7 +33,7 @@ public abstract class UriEncoder {
      * @return encoded URI
      */
     public static String encode(String uri) {
-        return escaper.escape(uri);
+        return URLEncoder.encode(uri, StandardCharsets.UTF_8);
     }
 
     /**
